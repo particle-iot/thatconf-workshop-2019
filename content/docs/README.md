@@ -19,7 +19,7 @@ The workshops are broken into presentations intermixed with hands-on labs that r
   - Unbox a brand new Argon, claim it to your Particle account, and make it light up with Tinker
 - Chapter 2: Reading from Sensors & exploring the Particle Device Cloud.
   - Read the Grove sensors included with the Grove Starter Kit for Particle Mesh, Use particle primities to expose sensor data to the cloud, trigger actions and fire events
-- Chapter 3: Using the Particle IoT Rules Engine & FileMaker
-  - Learn to use the Particle Rules Engine & the FileMaker to integrate IoT projects with third-party services and applications.
+- Chapter 3: Using Particle Webhooks & Integrations
+  - Learn to use the Particle Webhooks to integrate IoT projects with third-party services and applications, including Azure IoT Central.
 
 ---

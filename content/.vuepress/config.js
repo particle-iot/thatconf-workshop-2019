@@ -1,7 +1,7 @@
 module.exports = {
   base: '/',
   themeConfig: {
-    repo: 'particle-iot/filemaker-workshop-2019',
+    repo: 'bsatrom/thatconf-workshop-2019',
     editLinks: true,
     editLinkText: 'Help us improve this page!',
     nav: [
@@ -15,7 +15,7 @@ module.exports = {
         '/docs/ch2',
         'Chapter 2: Working with Particle primitives & Grove Sensors'
       ],
-      ['/docs/ch3', 'Chapter 3: Using The Particle IoT Rules Engine & FileMaker']
+      ['/docs/ch3', 'Chapter 3: Using Particle Webhooks & Integrations']
     ]
   },
   title: 'Particle Argon Workshop',

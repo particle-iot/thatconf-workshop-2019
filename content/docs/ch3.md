@@ -1,6 +1,6 @@
-# Chapter 3: Using the Particle IoT Rules Engine & FileMaker
+# Chapter 3: Using Particle Webhooks with IFTTT & azure IoT Central
 
-| **Project Goal**            | Connect your device to the Particle IoT Rules Engine, create simple dashboards and "backhaul" sensor data to FileMaker.                                                                                        |
+| **Project Goal**            | Use Particle Webhooks and Integrations to connect your app to IFTTT ans Azure IoT Central.                                                                                        |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **What you’ll learn**       | Working with the Particle IoT Rules Engine; Piping sensor data into FileMaker. |
 | **Tools you’ll need**       | Particle Workbench, Particle IoT Rules Engine Account, a Particle Argon and the Grove Starter Kit for Particle Mesh                                                                                                           |
