@@ -360,6 +360,16 @@ If you've gotten this far and still have some time on your hands, how about some
 
 If you have a Xenon on hand, why not try creating a mesh network with your Argon and adding the Xenon by [following this lab in the Particle docs](https://docs.particle.io/workshops/mesh-101-workshop/mesh-messaging/)? Then, use `Mesh.publish` and `subscribe` to add some interactivity between your two devices, like taking a heart-rate reading when the `SETUP` button on the Xenon is pressed, or lighting up the `D7` LED on the Xenon each time the barometer sensor takes a reading.
 
+## Bonus: Working with BLE and NFC
+
+If you're still looking for something else to do, how about some extra, extra credit? Particle recently released Beta support for BLE and NFC and if you're running Device OS v1.3.0 or later, you can try them out on any Gen 3 device (Argon, Boron, or Xenon). Why not try adding BLE and/or NFC support to your existing setup? Here are a couple of ideas:
+
+- Advertise temperature and humidity readings via BLE and read from a BLE App. Check out [this resource for some hints](https://blog.particle.io/2019/06/26/get-started-with-ble-and-nfc/).
+- Do the same as above, but with NFC.
+- Turn your Particle device into a [UART Peripheral](https://docs.particle.io/tutorials/device-os/bluetooth-le/#uart-peripheral).
+- View device event logs over [BLE](https://docs.particle.io/tutorials/device-os/bluetooth-le/#ble-log-handler).
+- Use [WebBLE in Chrome](https://docs.particle.io/tutorials/device-os/bluetooth-le/#chrome-web-ble) to view sensor data!
+
 ## Appendix: Grove sensor resources
 
 This section contains links and resources for the Grove sensors included in the Grove Starter Kit for Particle Mesh.
