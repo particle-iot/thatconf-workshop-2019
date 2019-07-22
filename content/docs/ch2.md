@@ -228,7 +228,7 @@ In this section, we'll use the Grove Chainable LED and the `Particle.function` c
 
 ![](./images/02/led-shield.jpg)
 
-4. As with the other two Grove devices, we'll need a library to help us program the chainable LED. Using the same process you followed in the last module, add the `Grove_ChainableLED` library to your project in Particle Workbench.
+4. As with the Temp and Humidity sensor, we'll need a library to help us program the chainable LED. Using the same process you followed in the last module, add the `Grove_ChainableLED` library to your project in Particle Workbench.
 
 5. Once the library has been added, add an include and  create an object for the ChainableLED class at the top of your code file. The first two parameters specify which pin the LED is wired to, and the third is the number of LEDs we have chained together, just one in our case.
 

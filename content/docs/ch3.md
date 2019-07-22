@@ -12,9 +12,13 @@ In this session, we're going to explore the power of Particle integrations, firs
 
 ### Setting up an IFTTT Integration
 
+- Finding the Particle node (look up last year's workshop)
+
 ### Publishing a Payload with Temp and Humidity Values
 
 ### Posting sensor values to Google Sheets
+
+
 
 ### Visualizing Data with Google Sheets
 
