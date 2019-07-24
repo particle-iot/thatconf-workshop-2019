@@ -15,7 +15,8 @@ module.exports = {
         '/docs/ch2',
         'Chapter 2: Working with Particle primitives & Grove Sensors'
       ],
-      ['/docs/ch3', 'Chapter 3: Using Particle Webhooks & Integrations']
+      ['/docs/ch3', 'Chapter 3: Using Particle Webhooks & Integrations'],
+      ['/docs/extra', 'Extra: Going Even Further!']
     ]
   },
   title: 'Particle Argon Workshop',

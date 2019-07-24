@@ -326,104 +326,242 @@ In this section, you'll explore Azure IoT Central, ingest data and add simple vi
 
 ### Setting up Azure IoT Central
 
-- Create dashboard
-
-### Using the Azure IoT Central Device Bridge Library
-
-- Installing the firmware lib
-- Getting keys and configuring a connection
-
-### Post Temperature and Humidity Values to Azure IoT Central
-
-- Publishing values in firmware
-- Making sure the device shows up in Central
-
-### Adding Telemetry to Azure IoT Central
-
-- Explicitly add telemetry values
-
-### Viewing IoT Central Time-Series 
-
-- Viewing time-series charts
-
-### Building Visualizations in IoT Central
-
-- Building guages and charts
-
-### Setting up an Azure IoT Hub
-
 1.  Sign up for an [Azure Account](https://azure.microsoft.com/en-us/get-started/), or sign in if you already have one.
 
 ![](./images/04/azureacct.png)
 
-2.  In the dashboard, click "Create a resource." Click "Internet of Things," then "IoT Hub" at the top of the list.
+2.  In the dashboard, click "Create a resource." Click "Internet of Things," then "IoT Central Application" at the top of the list.
 
-![](./images/04/resourcelist.png)
+![](./images/04/centrallist.png)
 
-3.  Create a new resource group named `workshop-group` and give the hub a name. The name must be unique across all of Azure, but you'll receive a notification if the name you selected is not unique.
+3. Give the IoT Central Application an name and URL (both must be globally unique). Then, select a subscription, select or create a resource group, choose a pricing tier, "Custom application" for the template, and East US for the location. Click "Create" and wait for the deployment to complete.
 
-![](./images/04/iothubdetails.png)
+![](./images/04/createcentralapp.png)
 
-4.  Click "Review + create".
+4. When the deployment completes, click the "Go to resource" button in the notification window.
 
-![](./images/04/reviewcreate.png)
+5. Click the URL for your IoT Central Application to open it in a new tab.
 
-5.  Click "Create".
+### Adding Device Telemetry and Commands
 
-![](./images/04/hubcreate.png)
+6. Click the "Create Device Templates" card on the home page. Click "Custom" in the next screen.
 
-6.  You'll get a notification that your IoT Hub is being deployed, which may take a few minutes. Once done, pin the hub to your dashboard.
+![](./images/04/centralhome.png)
 
-![](./images/04/deploymentinprogress.png)
+7. Name the template "Particle Argon" and click "Create."
 
-7.  Click "Go to resource" to open the hub.
+![](./images/04/templatehome.png)
 
-![](./images/04/deploymentsucceeded.png)
+8. Click the "New" menu option and select "Telemetry."
 
-8.  Click "Shared access policies". We'll create a policy to allow the Particle Device Cloud to stream events into the hub.
+![](./images/04/addtelemetry.png)
 
-9.  Give the policy the name `workshop-policy`, select all four permissions, then click "Create."
+9. Fill in the telemetry options using the data below and click "Save."
 
-![](./images/04/shared-access-policy.png)
+| Display Name | Field Name | Units | Minimum Value | Maximum Value | Decimal Places |
+| ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | 
+| Temperature | temp | degF | 0 | 110 | 0 |
 
-10. Open the policy you just created and copy the "Primary key."
+![](./images/04/createtelemetry.png)
 
-![](./images/04/policykey.png)
+10. Repeat steps 8-9 for humidity and light, using the values below
 
-Now we can use connect our IoT Hub instance to our Rules Engine flow.
+| Display Name | Field Name | Units | Minimum Value | Maximum Value | Decimal Places |
+| ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | 
+| Humidity | humidity | % | 0 | 100 | 0 |
+| Light Level | light | % | 0 | 100 | 2 |
 
-### Using the Azure IoT Hub node
+Once done, you'll start to see simulated data show up on the right side of the screen.
 
-1. Find the "Azure IoT Hub" node under the Azure palette group. Drag it to the workflow surface and connect it to the "To JSON" node.
+![](./images/04/alltelemetry.png)
 
-![](./images/03/azureiot.png)
+11. Click the "Commands" menu item, then click the "New Command" button.
 
-2. Double-click on the Azure IoT Hub node and set its properties to use `mqtt` as the transport protocol and the name of your IoT Hub as the host.
+![](./images/04/newcommand.png)
 
-![](./images/03/hubprops.png)
+12. In the "Configure Command" section, enter "Read Sensor Vals" for the "Display Name" and "readSensors" for the "Field Name." Then, click Save.
 
+![](./images/04/valscommand.png)
 
-3. Deploy the latest changes to your flow.
+13. Add another command with the name "Toggle LED" and "toggleLed" for the "Field Name."
 
-### Viewing IoT Hub Events
+### Create a Real Device in IoT Central
 
-With the event set up, everything should be piping into the Azure IoT hub. We can verify using the [iothub-explorer command line utility](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-explorer-cloud-device-messaging?WT.mc_id=7061727469636c65).
+14. Click the Device Explorer sidebar menu. Then, click the "+" button and select "Real" to create a real device. This is an IoT Central representation of your physical Argon.
 
-1.  Install the iothub-explorer using the instructions [here](https://github.com/azure/iothub-explorer).
+![](./images/04/deviceexplorer.png)
 
-2.  Navigate to your IoT Hub in the azure portal, and return to your shared access policy, `workshop-policy`. Copy the Connection string. You'll need this to authenticate with the iothub-explorer.
+15. Click "Create."
 
-![](./images/04/copy-conn-string.png)
+![](./images/04/realdevice.png)
 
-3.  Open a terminal window and type in the following command, replacing the `<device-id>` with the ID of your Electron and pasting the Shared access policy connection string in place of `<connection-string>` after login. Make sure to leave the quotation marks in place.
+16. Click the "Connect" menu item at the top right.
 
-```bash
-iothub-explorer monitor-events <device-id> --login "<connection-string>"
+![](./images/04/realdevicemain.png)
+
+17. Copy the "Primary Key" and "Device ID" from the popup window. You'll need these for the next step.
+
+![](./images/04/devicecreds.png)
+
+18. Before moving on, we'll need to create a connection string to use in our firmware to connect to Azure IoT Central. To do this, you have two options: 1) The [Azure Keygen Utility](https://github.com/Azure/dps-keygen), which must be installed locally, or this [Web-based tool](https://github.com/Azure/dps-keygen) from Azure Dev Advocate Dave Glover. The latter is not recommended for production instances, but is fine for this lab.
+
+![](./images/04/keygen.png)
+
+Now, let's update our firmware to integrate with Azure IoT Central!
+
+### Using the Azure IoT Central Device Bridge Library
+
+First, we'll need to install a library to work with Azure IoT Central.
+
+1. Open the Workbench command palette and select the "Particle: Install Library" option.
+
+2. Enter "AzureIotHubClient" for the library name.
+
+3. Once the library is installed, add an include to the top of your project.
+
+```cpp
+#include "AzureIotHubClient.h"
 ```
 
-If you've authenticated correctly, you'll see the message "Monitoring events from device `<device-id>`...". After a moment, you should see events streaming into the Azure IoT Hub!
+4. Just below the include, add another line for the connection string. Replace the text in quotes with the string you generated in the last section.
 
-![](./images/04/iothubexplorer.gif)
+```cpp
+#define AZURE_CONNECTON_STRING "<Your Azure IoT Hub or Azure IoT Central Connection String>"
+```
 
-Once you're streaming device data into the Azure IoT Hub, you can pipe the data into Azure table storage, set-up streaming analytics to transform the data, create Azure Web Apps, reports with Power BI, use Azure Machine Learning, and more! In the next section, we'll set-up a streaming analytics job and visualize our data in Power BI.
+5. Next, create a callback method for Azure IoT to use when you call a command from IoT Central, and initialize the Hub object. The second parameter is for a Cloud2Device messages, which we're not using here, so we just set it to `NULL`.
 
+```cpp
+int callbackDirectMethod(char *method, byte *payload, unsigned int length);
+
+IotHub hub(AZURE_CONNECTON_STRING, NULL, callbackDirectMethod);
+```
+
+6. One of the commands we set-up in IoT Central was `readSensors`, which we don't have yet, so let's create it. This just uses the same code in the `loop`, which you could refactor into this function, or leave as-is if you want.
+
+```cpp
+void readSensors()
+{
+  temp = (int)dht.getTempFarenheit();
+  humidity = (int)dht.getHumidity();
+
+  double lightAnalogVal = analogRead(A0);
+  currentLightLevel = map(lightAnalogVal, 0.0, 4095.0, 0.0, 100.0);
+
+  createEventPayload(temp, humidity, currentLightLevel);
+}
+```
+
+7. Now, let's define the `callbackDirectMethod` function. We set-up two methods in IoT Central, named `readSensors` and `toggleLed` (which is also the name of our `Particle.function` from the last lab). Azure IoT passes the method name in as a string, so we can determine which method is called using the `strcmp` C function, which returns `0` if the strings match. If we get a match, we'll publish a debug message to the Particle Device Cloud and then call the appropriate function. Finally, we'll return a 200 HTTP Status Code, or a 400 if the method string doesn't match what we expect.
+
+```cpp
+int callbackDirectMethod(char *method, byte *payload, unsigned int payloadLength)
+{
+  if (strcmp(method, "readSensors") == 0)
+  {
+    Particle.publish("iot-central/debug", "Read Sensors from IoT Central!", PRIVATE);
+    readSensors();
+  }
+  else if (strcmp(method, "toggleLed") == 0)
+  {
+    Particle.publish("iot-central/debug", "Toggle LED from IoT Central!", PRIVATE);
+    toggleLed("");
+  }
+  else
+  {
+    return 400;
+  }
+
+  return 200;
+}
+```
+
+8. Now, let's modify the Firmware to send telemetry data to Azure IoT Central. We'll need to modify the `createEventPayload` method to publish an event to Azure IoT, in addition to the Particle Device Cloud. The `hub.loop()` method checks to make sure we're connected to Azure IoT and, if so, it adds the Azure Device ID to the payload and sends a debug message to the Particle Device Cloud. Finally, `hub.publish()` sends the payload with our telemetry data to Azure IoT.
+
+```cpp{11-17,20-23}
+void createEventPayload(int temp, int humidity, double light)
+{
+  JsonWriterStatic<256> jw;
+  {
+    JsonWriterAutoObject obj(&jw);
+
+    jw.insertKeyValue("temp", temp);
+    jw.insertKeyValue("humidity", humidity);
+    jw.insertKeyValue("light", light);
+    
+    if (hub.loop())
+    {
+      Particle.publish("iot-central/debug", "Sending Env Vals", PRIVATE);
+      jw.insertKeyValue("deviceid", hub.getDeviceId());
+    } else {
+      Particle.publish("iot-central/debug", "IoT Hub Not Connected!", PRIVATE);
+    }
+  }
+
+  if (hub.loop())
+  {
+     hub.publish(jw.getBuffer());
+  }
+
+  Particle.publish("env-vals", jw.getBuffer(), PRIVATE);
+}
+```
+
+9. Flash your device and, once it comes online, you should see your Azure IoT debug messages in the Particle Console.
+
+![](./images/04/consoledebug.png)
+
+10. Navigate back to your Azure IoT Central application and click the "Devices" menu item. Click on your real device (not the simulated device) and you'll be taken to the telemetry dashboard, which will provide a live view of incoming data from your device.
+
+![](./images/04/telemetry.png)
+
+
+11. Now, click the "Commands" menu item for your device, which should show the two commands you set-up in the device template. Click "Run" on the "Toggle LED" command.
+
+![](./images/04/commands.png)
+
+12. After the command completes, the LED on your device should light up, and you'll see a debug message in the Particle Console.
+
+![](./images/04/leddebug.png)
+
+Now that everything is configured and you're streaming sensor data into Azure IoT Central, let's build some more visualizations.
+
+### Building Visualizations in IoT Central
+
+To build dashboard visualizations for our Particle Device, we'll need to edit the device template. 
+
+1. Click on the "Device Templates" menu item in IoT Central and Click on your "Particle Argon" template.
+
+![](./images/04/templates.png)
+
+2. Click the "Dashboard" menu item.
+
+![](./images/04/widgets.png)
+
+3. Click the "Last Known Value" widget. In the configuration window, set the title to "Last Temp," the measurement type to "Telemetry" and, in "Measures", click the visibility icon next to "Temperature" to select it.
+
+![](./images/04/lasttemp.png)
+
+4. Click save, and the widget will show up in the main panel, with simulated data.
+
+![](./images/04/lasttempsim.png)
+
+5. Repeat steps 3 and 4 for the humidity and light sensor values.
+
+![](./images/04/allsensors.png)
+
+6. Now, click the "Line Chart" widget. In the configuration window, enter "Env Vals" as the title, set a time range to the past hour, and click the visibility icon for all three values to select them.
+
+![](./images/04/createchart.png)
+
+7. Click save and the chart will be created, again with simulated data.
+
+![](./images/04/allwidgets.png)
+
+8. Click on the "Devices" left menu item, and select your real device. Click the "Dashboard" top menu item and you'll see the real values from your Particle Argon.
+
+![](./images/04/realdashboard.png)
+
+<hr/>
+
+**Congratulations! You've completed this workshop. Now you're a Particle Master! Take a moment to pat yourself on the back and bask in your newfound IoT-commandery. And if you want to take your exploration further, click the "Extra" link below!**
