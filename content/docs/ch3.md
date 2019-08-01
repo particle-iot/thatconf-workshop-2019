@@ -2,11 +2,12 @@
 
 | **Project Goal**            | Use Particle Webhooks and Integrations to connect your app to IFTTT and Azure IoT Central.                                                                                        |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **What you’ll learn**       | Working with Particle Integrations, IFTTT and Azure IoT Central |
-| **Tools you’ll need**       | Particle Workbench, an [IFTTT.com](https://ifttt.com) account, an [Azure account](https://portal.azure.com), a Particle Argon and the Grove Starter Kit for Particle Mesh                                                                                                           |
+| **What you’ll learn**       | Working with Particle Integrations, IFTTT, and Azure IoT Central |
+| **Tools you’ll need**       | Particle Workbench, an [IFTTT.com](https://ifttt.com) account, an [Azure account](https://portal.azure.com), a Particle Argon, and the Grove Starter Kit for Particle Mesh                                                                                                           |
 | **Time needed to complete** | 60 minutes                                                                                                                                                                |
 
-In this session, we're going to explore the power of Particle integrations, first with the popular IF This Then That (IFTTT) service, then with Azure IoT Central.
+In this session, you're going to explore the power of Particle integrations, first with the popular IF This Then That (IFTTT) service, then with Azure IoT Central.
+
 
 ## Exploring the Particle CLI and Cloud API
 
@@ -26,11 +27,11 @@ bash <( curl -sL https://particle.io/install-cli )
 
 ![](./images/04/particlelist.gif)
 
-4.  The device we've been using for this workshop has 2 variables and one function. Get the value of the `temp` variable with the command `particle get temp`.
+4.  The device you've been using for this workshop has 2 variables and one function. Get the value of the `temp` variable with the command `particle get temp`.
 
 ![](./images/04/temp.gif)
 
-5.  We can also call one of the two functions to light up the yellow or blue LED button. Type the command `particle call <your-device-name> toggleLed` in the terminal. Run the same command again to turn the light off.
+5.  You can also call one of the two functions to light up the yellow or blue LED button. Type the command `particle call <your-device-name> toggleLed` in the terminal. Run the same command again to turn the light off.
 
 ### The Particle Device Cloud API
 
@@ -73,7 +74,7 @@ You've now explored a number of ways that you can interface with the Particle De
 
 ### Setting up an IFTTT Integration
 
-IFTTT (If This, Then That) is a web-based service that allows you to create integrations via simple conditional statements, called applets. There are hundreds of pre-built services you can leverage, and first-class support for Particle devices. In this section, we're going to create an IFTTT integration that posts a tweet when you press a button on your badge.
+IFTTT (If This, Then That) is a web-based service that allows you to create integrations via simple conditional statements, called applets. There are hundreds of pre-built services you can leverage, and first-class support for Particle devices. In this section, you're going to create an IFTTT integration that posts a tweet when you press a button on your badge.
 
 **Note**: During the flow below, you'll need to connect both your Particle and Google accounts with IFTTT. When prompted, follow the on-screen instructions to do so.
 
@@ -121,7 +122,7 @@ Now, let's modify our device firmware to publish temp and humidity values.
 
 ### Refactoring out the blocking delay
 
-First, let's refactor our firmware to remove the `delay` in the loop. While the delay approach is common when getting started with creating embedded applications, it's a blocking operation. This means that any calls you make to the device during a delay may timeout before being received. One common way to write periodic code without using `delay` is to use the built-in `millis()` function and keep track of the elapsed time between the last time we performed an operation (like a temp check) and the wait time between operations.
+First, let's refactor our firmware to remove the `delay` in the loop. While the delay approach is common when getting started with creating embedded applications, it's a blocking operation. This means that any calls you make to the device during a delay may timeout before being received. One common way to write periodic code without using `delay` is to use the built-in `millis()` function and keep track of the elapsed time between the last time you performed an operation (like a temp check) and the wait time between operations.
 
 1. First, let's add some global variables to hold the last check time and an interval. Add the following to the top of your project, outside of the `setup` and `loop`.
 
@@ -175,7 +176,7 @@ void loop()
 ```
 ### Publishing a Payload with Temp and Humidity Values
 
-Now, let's send the current temp, humidity and light level using a `Particle.publish` event. We'll sind a single event with all three values in a single JSON object. To do this, we'll use the `JSONParserGenerator` library.
+Now, let's send the current temp, humidity and light level using a `Particle.publish` event. You'll sind a single event with all three values in a single JSON object. To do this, you'll use the `JSONParserGenerator` library.
 
 1. Open the Workbench Command Palette (CMD+SHIFT+P or CTRL+SHIFT+P) and select the "Particle: Install Library" option.
 
@@ -219,11 +220,11 @@ Particle.publish("env-vals", createEventPayload(temp, humidity, currentLightLeve
 
 ![](./images/04/gsheet.png)
 
-Now that we have data streaming into Google Sheets, let's transform the data and create some simple visualizations!
+Now that you have data streaming into Google Sheets, let's transform the data and create some simple visualizations!
 
 ### Processing Data in Google Sheets
 
-Before we create data visualizations with our sensor data, we need to transform the sensor values into discrete values. We'll do this by creating a simple script that processes the raw data as it is added to the main sheet, inserting each raw sensor value in a new sheet for data viz.
+Before you create data visualizations with our sensor data, you need to transform the sensor values into discrete values. You'll do this by creating a simple script that processes the raw data as it is added to the main sheet, inserting each raw sensor value in a new sheet for data viz.
 
 1. In the "TCEnvVals" document, create a new sheet called "Processed" and give it four columns, "Temp," "Humidity," "Light" and "Time."
 
@@ -250,7 +251,7 @@ function onChange(e) {
 }
 ```
 
-The code above is a JavaScript function that uses the Google Sheets API to get the last row inserted into the main sheet, extract the sensor vals, and the timestamp. The sensor vals are parsed into a JSON object, and then we add a new row to the "Processed" sheet with those values and the timestamp.
+The code above is a JavaScript function that uses the Google Sheets API to get the last row inserted into the main sheet, extract the sensor vals, and the timestamp. The sensor vals are parsed into a JSON object, and then you add a new row to the "Processed" sheet with those values and the timestamp.
 
 5. Save the file.
 
@@ -403,7 +404,7 @@ Once done, you'll start to see simulated data show up on the right side of the s
 
 ![](./images/04/devicecreds.png)
 
-18. Before moving on, we'll need to create a connection string to use in our firmware to connect to Azure IoT Central. To do this, you have two options: 1) The [Azure Keygen Utility](https://github.com/Azure/dps-keygen), which must be installed locally, or this [Web-based tool](https://github.com/Azure/dps-keygen) from Azure Dev Advocate Dave Glover. The latter is not recommended for production instances, but is fine for this lab.
+18. Before moving on, you'll need to create a connection string to use in our firmware to connect to Azure IoT Central. To do this, you have two options: 1) The [Azure Keygen Utility](https://github.com/Azure/dps-keygen), which must be installed locally, or this [Web-based tool](https://github.com/Azure/dps-keygen) from Azure Dev Advocate Dave Glover. The latter is not recommended for production instances, but is fine for this lab.
 
 ![](./images/04/keygen.png)
 
@@ -411,7 +412,7 @@ Now, let's update our firmware to integrate with Azure IoT Central!
 
 ### Using the Azure IoT Central Device Bridge Library
 
-First, we'll need to install a library to work with Azure IoT Central.
+First, you'll need to install a library to work with Azure IoT Central.
 
 1. Open the Workbench command palette and select the "Particle: Install Library" option.
 
@@ -429,7 +430,7 @@ First, we'll need to install a library to work with Azure IoT Central.
 #define AZURE_CONNECTON_STRING "<Your Azure IoT Hub or Azure IoT Central Connection String>"
 ```
 
-5. Next, create a callback method for Azure IoT to use when you call a command from IoT Central, and initialize the Hub object. The second parameter is for a Cloud2Device messages, which we're not using here, so we just set it to `NULL`.
+5. Next, create a callback method for Azure IoT to use when you call a command from IoT Central, and initialize the Hub object. The second parameter is for a Cloud2Device messages, which you're not using here, so you just set it to `NULL`.
 
 ```cpp
 int callbackDirectMethod(char *method, byte *payload, unsigned int length);
@@ -437,7 +438,7 @@ int callbackDirectMethod(char *method, byte *payload, unsigned int length);
 IotHub hub(AZURE_CONNECTON_STRING, NULL, callbackDirectMethod);
 ```
 
-6. One of the commands we set-up in IoT Central was `readSensors`, which we don't have yet, so let's create it. This just uses the same code in the `loop`, which you could refactor into this function, or leave as-is if you want.
+6. One of the commands you set-up in IoT Central was `readSensors`, which you don't have yet, so let's create it. This just uses the same code in the `loop`, which you could refactor into this function, or leave as-is if you want.
 
 ```cpp
 void readSensors()
@@ -452,7 +453,7 @@ void readSensors()
 }
 ```
 
-7. Now, let's define the `callbackDirectMethod` function. We set-up two methods in IoT Central, named `readSensors` and `toggleLed` (which is also the name of our `Particle.function` from the last lab). Azure IoT passes the method name in as a string, so we can determine which method is called using the `strcmp` C function, which returns `0` if the strings match. If we get a match, we'll publish a debug message to the Particle Device Cloud and then call the appropriate function. Finally, we'll return a 200 HTTP Status Code, or a 400 if the method string doesn't match what we expect.
+7. Now, let's define the `callbackDirectMethod` function. You set-up two methods in IoT Central, named `readSensors` and `toggleLed` (which is also the name of our `Particle.function` from the last lab). Azure IoT passes the method name in as a string, so you can determine which method is called using the `strcmp` C function, which returns `0` if the strings match. If you get a match, you'll publish a debug message to the Particle Device Cloud and then call the appropriate function. Finally, you'll return a 200 HTTP Status Code, or a 400 if the method string doesn't match what you expect.
 
 ```cpp
 int callbackDirectMethod(char *method, byte *payload, unsigned int payloadLength)
@@ -476,7 +477,7 @@ int callbackDirectMethod(char *method, byte *payload, unsigned int payloadLength
 }
 ```
 
-8. Now, let's modify the Firmware to send telemetry data to Azure IoT Central. We'll need to modify the `createEventPayload` method to publish an event to Azure IoT, in addition to the Particle Device Cloud. The `hub.loop()` method checks to make sure we're connected to Azure IoT and, if so, it adds the Azure Device ID to the payload and sends a debug message to the Particle Device Cloud. Finally, `hub.publish()` sends the payload with our telemetry data to Azure IoT.
+8. Now, let's modify the Firmware to send telemetry data to Azure IoT Central. You'll need to modify the `createEventPayload` method to publish an event to Azure IoT, in addition to the Particle Device Cloud. The `hub.loop()` method checks to make sure you're connected to Azure IoT and, if so, it adds the Azure Device ID to the payload and sends a debug message to the Particle Device Cloud. Finally, `hub.publish()` sends the payload with our telemetry data to Azure IoT.
 
 ```cpp{11-17,20-23}
 void createEventPayload(int temp, int humidity, double light)
@@ -528,7 +529,7 @@ Now that everything is configured and you're streaming sensor data into Azure Io
 
 ### Building Visualizations in IoT Central
 
-To build dashboard visualizations for our Particle Device, we'll need to edit the device template. 
+To build dashboard visualizations for our Particle Device, you'll need to edit the device template. 
 
 1. Click on the "Device Templates" menu item in IoT Central and Click on your "Particle Argon" template.
 
@@ -567,4 +568,4 @@ To build dashboard visualizations for our Particle Device, we'll need to edit th
 **Congratulations! You've completed this workshop. Now you're a Particle Master! Take a moment to pat yourself on the back and bask in your newfound IoT-commandery. And if you want to take your exploration further, click the "Extra" link below!**
 
 
-**BEFORE YOU GO** we'd love it if you could provide feedback on this workshop. Please visit [this link](https://particleiot.typeform.com/to/JiF8xM) to rate your experience.
+**BEFORE YOU GO** you'd love it if you could provide feedback on this workshop. Please visit [this link](https://particleiot.typeform.com/to/JiF8xM) to rate your experience.
