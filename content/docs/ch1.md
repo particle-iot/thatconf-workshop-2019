@@ -51,7 +51,7 @@ Make sure to allow the app to access your camera to complete this step.
 <img src="./images/01/app-update-device-os.jpg" class="two-per-line" />
 <img src="./images/01/app-updating-device-os.jpg" class="two-per-line" />
 
-8. After the update is complete the <!--Argon will return to listening mode (blinking blue) and the-->app will ask if you want to add the Argon to a mesh network. For now, select "_NO, DON'T USE IN MESH_," as we will will explore the mesh networking capabilities later on.
+8. After the update is complete the <!--Argon will return to listening mode (blinking blue) and the-->app will ask if you want to add the Argon to a mesh network. For now, select "_NO, DON'T USE IN MESH_," as you will explore the mesh networking capabilities later on.
 
 ![](./images/01/app-argon-use-in-mesh.jpg)
 
@@ -87,7 +87,7 @@ Flashing is hardware-speak for sending code to a device. For Particle devices, t
 
 At this point, your goal is now to write code that turns the onboard blue LED on and off every second — a hardware equivalent of the classic "Hello world!".
 
-4. The physical pin connected to the blue LED is `D7`, we give it a name, so we can call it later on. Do this _above_ the `setup` function.
+4. The physical pin connected to the blue LED is `D7`, you give it a name, so you can call it later on. Do this _above_ the `setup` function.
 
 ```cpp
 // Blink an LED.
@@ -98,7 +98,7 @@ int ledPin = D7; // The onboard blue LED is connected to pin D7.
 5. We now need to configure this pin as an output to be able to control the voltage (`HIGH` or `LOW`). This is done _inside_ the `setup` function.
 
 ```cpp
-// Set the pin mode to output, so we may control it.
+// Set the pin mode to output, so you may control it.
 pinMode(ledPin, OUTPUT);
 ```
 
