@@ -3,11 +3,11 @@
 | **Project Goal**            | Start programming your Argon, read sensor data, and leverage the device cloud.                         |
 | --------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **What you’ll learn**       | How to interact with sensors, using Particle variables, cloud functions and publish/subscribe.                               |
-| **Tools you’ll need**       | build.particle.io, console.particle.io, the Particle CLI, Particle Workbench, a Particle Argon and Grove Starter Kit for Particle Mesh |
+| **Tools you’ll need**       | Access to the internet for build.particle.io and console.particle.io. Plus the Particle CLI, Particle Workbench, a Particle Argon, and Grove Starter Kit for Particle Mesh |
 | **Time needed to complete** | 60 minutes                                                                                                |
 
 In this session, you'll explore the Particle ecosystem via an Argon-powered Grove Starter Kit for Particle Mesh with several sensors! If you get stuck at any point during this session, [click here for the completed, working source](TODO).
-****
+
 ## Create a new project in Particle Workbench
 
 1. Open Particle Workbench (VS Code) and click "Create new project."
@@ -60,7 +60,7 @@ You're now ready to program your Argon with Particle Workbench. Let's get the de
 
 ## Unboxing the Grove Starter Kit
 
-The Grove starter kit for Particle Mesh comes with seven different components that work out-of-the-box with Particle Mesh devices, and a Grove Shield that allows you to plug in your Feather-compatible Mesh devices for quick prototyping. The shield houses eight Grove ports that support all types of Grove accessories. For more information about the kit, [click here](https://docs.particle.io/datasheets/accessories/mesh-accessories/#grove-starter-kit-for-particle-mesh).
+The Grove Starter Kit for Particle Mesh comes with seven different components that work out-of-the-box with Particle Mesh devices, and a Grove Shield that allows you to plug in your Feather-compatible Mesh devices for quick prototyping. The shield houses eight Grove ports that support all types of Grove accessories. For more information about the kit, [click here](https://docs.particle.io/datasheets/accessories/mesh-accessories/#grove-starter-kit-for-particle-mesh).
 
 For this lab, you'll need the following items from the kit:
 
@@ -84,7 +84,7 @@ The Particle Device OS provides a simple way to access sensor values and device 
 
 ### Connect the Temperature sensor
 
-To connect the sensor, connect a grove cable to the port on the sensor. Then, connect the other end of the cable to the D2 port on the Grove shield.
+To connect the sensor, connect a Grove cable to the port on the sensor. Then, connect the other end of the cable to the `D2` port on the Grove shield.
 
 ![](./images/02/temp-connect.png)
 
@@ -301,7 +301,7 @@ Particle.function("toggleLed", toggleLed);
 
 ![](./images/02/console-func.gif)
 
-## Working with Particle Publish and Subscribe and the light sensor
+## Working with Particle Publish & Subscribe plus a light sensor
 
 For the final section of this lab, you're going to explore the [Particle `pub/sub` primitives](https://docs.particle.io/reference/device-os/firmware/photon/#particle-publish-), which allows inter-device (and app!) messaging through the Particle Device Cloud. You'll use the light sensor and publish messages to all listeners when light is detected.
 
@@ -364,7 +364,12 @@ If you have a Xenon on hand, why not try creating a mesh network with your Argon
 
 ## Bonus: Working with BLE and NFC
 
-If you're still looking for something else to do, how about some extra, extra credit? Particle recently released Beta support for BLE and NFC and if you're running Device OS v1.3.0 or later, you can try them out on any Gen 3 device (Argon, Boron, or Xenon). Why not try adding BLE and/or NFC support to your existing setup? Here are a couple of ideas:
+If you're still looking for something else to do, how about some extra, extra credit?
+
+***Try the BLE APIs***
+Recently released Beta support for BLE and NFC and if you're running Device OS v1.3.0 or later, you can try them out on any Gen 3 device (Argon, Boron, or Xenon). Why not try adding BLE and/or NFC support to your existing setup? 
+
+***Here are a couple of ideas:***
 
 - Advertise temperature and humidity readings via BLE and read from a BLE App. Check out [this resource for some hints](https://blog.particle.io/2019/06/26/get-started-with-ble-and-nfc/).
 - Do the same as above, but with NFC.
