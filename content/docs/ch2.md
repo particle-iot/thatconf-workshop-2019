@@ -2,15 +2,15 @@
 
 | **Project Goal**            | Start programming your Argon, read sensor data, and leverage the device cloud.                         |
 | --------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **What you’ll learn**       | How to interact with sensors; Using Particle variables, cloud functions and publish/subscribe.                               |
+| **What you’ll learn**       | How to interact with sensors, using Particle variables, cloud functions and publish/subscribe.                               |
 | **Tools you’ll need**       | build.particle.io, console.particle.io, the Particle CLI, Particle Workbench, a Particle Argon and Grove Starter Kit for Particle Mesh |
 | **Time needed to complete** | 60 minutes                                                                                                |
 
-In this session, we're going to explore the Particle ecosystem via an, Argon-powered Grove Starter Kit for Particle Mesh with several sensors! If you get stuck at any point during this session, [click here for the completed, working source](TODO).
-
+In this session, you'll explore the Particle ecosystem via an Argon-powered Grove Starter Kit for Particle Mesh with several sensors! If you get stuck at any point during this session, [click here for the completed, working source](TODO).
+****
 ## Create a new project in Particle Workbench
 
-1. Open Particle Workbench (VS Code) and click "Create new project"
+1. Open Particle Workbench (VS Code) and click "Create new project."
 
 ![](./images/02/wb-create-project.png)
 
@@ -26,7 +26,7 @@ In this session, we're going to explore the Particle ecosystem via an, Argon-pow
 
 ![](./images/02/wb-confirm.png)
 
-4. Once the project is created, the main `.ino` file will be opened in the main editor. Before we continue, let's take a look at the Workbench interface.
+4. Once the project is created, the main `.ino` file will be opened in the main editor. Before you continue, let's take a look at the Workbench interface.
 
 ### Using the command palette and quick buttons
 
@@ -34,7 +34,7 @@ In this session, we're going to explore the Particle ecosystem via an, Argon-pow
 
 ![](./images/02/wb-command-p.png)
 
-2. The top nav of Particle Workbench also includes a number of handy buttons. From left to right, they are Compile (local), Flash (local), call function and get variable.
+2. The top nav of Particle Workbench also includes a number of handy buttons. From left to right, they are Compile (local), Flash (local), call function, and get variable.
 
 ![](./images/02/wb-quick-buttons.png)
 
@@ -58,9 +58,9 @@ In this session, we're going to explore the Particle ecosystem via an, Argon-pow
 
 You're now ready to program your Argon with Particle Workbench. Let's get the device plugged into your Grove kit and start working with sensors.
 
-## Unboxing the Grove Kit
+## Unboxing the Grove Starter Kit
 
-The Grove starter kit for Particle Mesh comes with seven different components that work out-of-the-box with Particle Mesh devices, and a Grove Shield that allows you to plug in your Feather-compatible Mesh devices for quick prototyping. The shield houses 8 Grove ports that support all types of Grove accessories. For more information about the kit, [click here](https://docs.particle.io/datasheets/accessories/mesh-accessories/#grove-starter-kit-for-particle-mesh).
+The Grove starter kit for Particle Mesh comes with seven different components that work out-of-the-box with Particle Mesh devices, and a Grove Shield that allows you to plug in your Feather-compatible Mesh devices for quick prototyping. The shield houses eight Grove ports that support all types of Grove accessories. For more information about the kit, [click here](https://docs.particle.io/datasheets/accessories/mesh-accessories/#grove-starter-kit-for-particle-mesh).
 
 For this lab, you'll need the following items from the kit:
 
@@ -78,7 +78,7 @@ For this lab, you'll need the following items from the kit:
 
 Now, you're ready to start using your first Grove component!
 
-## Working with Particle Variables and the Temperature & Humidity Sensor
+## Working with Particle Variables plus the Temperature & Humidity Sensor
 
 The Particle Device OS provides a simple way to access sensor values and device local state through the [variable primitive](https://docs.particle.io/reference/device-os/firmware/argon/#particle-variable-). Registering an item of firmware state as a variable enables you to retrieve that state from the Particle Device Cloud. Let's explore this now with the help of the Grove Temperature and Humidity sensor.
 
@@ -90,7 +90,7 @@ To connect the sensor, connect a grove cable to the port on the sensor. Then, co
 
 ### Install the sensor firmware library
 
-To read from the temperature sensor, we'll use a firmware library, which abstracts away many of the complexities of dealing with this device. That means we don't have to reading from the sensor directly or dealing with conversions, and can instead call functions like `getHumidity` and `getTempFarenheit`.
+To read from the temperature sensor, you'll use a firmware library, which abstracts away many of the complexities of dealing with this device. That means you don't have to reading from the sensor directly or dealing with conversions, and can instead call functions like `getHumidity` and `getTempFarenheit`.
 
 1. Open your Particle Workbench project and activate the command palette (CMD/CTRL+SHIFT+P).
 
@@ -120,7 +120,7 @@ You'll be notified once the library is installed, and a `lib` directory will be 
 DHT dht(D2);
 ```
 
-3. In the `setup` function, we'll initialize the sensor and a serial monitor:
+3. In the `setup` function, you'll initialize the sensor and a serial monitor:
 
 ```cpp
 void setup()
@@ -156,11 +156,11 @@ void loop()
 
 ![](./images/02/wb-serial.png)
 
-Now that we've connected the sensor, let's sprinkle in some Particle goodness.
+Now that you've connected the sensor, let's sprinkle in some Particle goodness.
 
 ### Storing sensor data in Particle variables
 
-1. To use the Particle variable primitive, we need global variables to access. Start by moving the first line of your `loop` which declares the three environment variables to the top of your project, outside of the `setup` and `loop` functions. Let's also change those from `float` to `int` types.
+1. To use the Particle variable primitive, you need global variables to access. Start by moving the first line of your `loop` which declares the three environment variables to the top of your project, outside of the `setup` and `loop` functions. Let's also change those from `float` to `int` types.
 
 ```cpp
 #include "Grove_Temperature_And_Humidity_Sensor.h"
@@ -185,7 +185,9 @@ temp = (int)dht.getTempFarenheit();
 humidity = (int)dht.getHumidity();
 ```
 
-2. With global variables in hand, we can add Particle variables using the `Particle.variable()` method, which takes two parameters: the first is a string representing the name of the variable, and the second is the firmware variable to track. Add the following lines to the end of your `setup` function:
+2. With global variables in hand, you can add Particle variables using the `Particle.variable()` method, which takes two parameters: the first is a string representing the name of the variable, and the second is the firmware variable to track. 
+
+Add the following lines to the end of your `setup` function:
 
 ```cpp
 Particle.variable("temp", temp);
@@ -196,7 +198,7 @@ Particle.variable("humidity", humidity);
 
 ### Accessing Particle variables from the Console
 
-1. To view the variables we just created, open the Particle Console by navigating to [console.particle.io](https://console.particle.io) and clicking on your device.
+1. To view the variables you just created, open the Particle Console by navigating to [console.particle.io](https://console.particle.io) and clicking on your device.
 
 ![](./images/02/console-list.png)
 
@@ -208,19 +210,19 @@ Particle.variable("humidity", humidity);
 
 ![](./images/02/console-vars.png)
 
-Now that we've mastered Particle variables for reading sensor data, let's look at how we can use the function primitive to trigger an action on the device. 
+Now that you've mastered Particle variables for reading sensor data, let's look at how you can use the function primitive to trigger an action on the device. 
 
 ## Working with Particle Functions and the Chainable LED
 
 As with Particle variables, the [function](https://docs.particle.io/reference/device-os/firmware/photon/#particle-function-) primitive exposes our device to the Particle Device Cloud. Where variables expose state, functions expose actions.
 
-In this section, we'll use the Grove Chainable LED and the `Particle.function` command to take a heart-rate reading, on demand.
+In this section, you'll use the Grove Chainable LED and the `Particle.function` command to take a heart-rate reading, on demand.
 
 ### Connect the Chainable LED
 
 1. Open the bag containing the chainable LED and take one connector out of the bag.
 
-2. Connect one end of the Grove connector to the chainable LED on the side marked IN (the left side if you're looking at the device in a correct orientation.)
+2. Connect one end of the Grove connector to the chainable LED on the side marked IN (the left side if you're looking at the device in a correct orientation).
 
 ![](./images/02/led-connect.jpg)
 
@@ -228,23 +230,23 @@ In this section, we'll use the Grove Chainable LED and the `Particle.function` c
 
 ![](./images/02/led-shield.jpg)
 
-4. As with the Temp and Humidity sensor, we'll need a library to help us program the chainable LED. Using the same process you followed in the last module, add the `Grove_ChainableLED` library to your project in Particle Workbench.
+4. As with the Temp and Humidity sensor, you'll need a library to help us program the chainable LED. Using the same process you followed in the last module, add the `Grove_ChainableLED` library to your project in Particle Workbench.
 
-5. Once the library has been added, add an include and  create an object for the ChainableLED class at the top of your code file. The first two parameters specify which pin the LED is wired to, and the third is the number of LEDs we have chained together, just one in our case.
+5. Once the library has been added, add an include and  create an object for the ChainableLED class at the top of your code file. The first two parameters specify which pin the LED is wired to, and the third is the number of LEDs you have chained together, just one in our case.
 
 ```cpp
 #include "Grove_ChainableLED.h"
 ChainableLED leds(A4, A5, 1);
 ```
 
-6. Now, initialize the object in your `setup` function. We'll also set the LED color to off after initialization.
+6. Now, initialize the object in your `setup` function. You'll also set the LED color to off after initialization.
 
 ```cpp
 leds.init();
 leds.setColorHSB(0, 0.0, 0.0, 0.0);
 ```
 
-With our new device set-up, we can turn it on in response to Particle function calls!
+With our new device set-up, you can turn it on in response to Particle function calls!
 
 ### Turning on the Chainable LED
 
@@ -299,9 +301,9 @@ Particle.function("toggleLed", toggleLed);
 
 ![](./images/02/console-func.gif)
 
-## Working with Particle Publish and Subscribe and the Light sensor
+## Working with Particle Publish and Subscribe and the light sensor
 
-For the final section of this lab, we're going to explore the [Particle `pub/sub` primitives](https://docs.particle.io/reference/device-os/firmware/photon/#particle-publish-), which allows inter-device (and app!) messaging through the Particle Device Cloud. We'll use the Light sensor and publish messages to all listeners when light is detected.
+For the final section of this lab, you're going to explore the [Particle `pub/sub` primitives](https://docs.particle.io/reference/device-os/firmware/photon/#particle-publish-), which allows inter-device (and app!) messaging through the Particle Device Cloud. You'll use the light sensor and publish messages to all listeners when light is detected.
 
 ### Connect the Light sensor
 
@@ -311,9 +313,9 @@ To connect the light sensor, connect a Grove cable to the port of the sensor. Th
 
 ### Using the sensor 
 
-Let's set-up the sensor on the firmware side so that we can use it in our project. The light sensor is an analog device, so configuring it is easy, no library needed.
+Let's set-up the sensor on the firmware side so that you can use it in our project. The light sensor is an analog device, so configuring it is easy, no library needed.
 
-1. We need to specify that the light sensor is an input using the `pinMode` function. Add the following line to your `setup` function:
+1. You'll need to specify that the light sensor is an input using the `pinMode` function. Add the following line to your `setup` function:
 
 ```cpp
 pinMode(A0, INPUT);
@@ -325,7 +327,7 @@ pinMode(A0, INPUT);
 double currentLightLevel;
 ```
 
-3. Now, in the `loop` function, let's read from the sensor and use the `map` function to translate the analog reading to a value between 0 and 100 that we can work with.
+3. Now, in the `loop` function, let's read from the sensor and use the `map` function to translate the analog reading to a value between 0 and 100 that you can work with.
 
 ```cpp
 double lightAnalogVal = analogRead(A0);
@@ -350,7 +352,7 @@ In addition to viewing published messages from the console, you can subscribe to
 
 1. Open a new terminal window and type `particle subscribe light-meter mine`
 
-2. Shine a light on the light sensor and wait for readings. You should see events stream across your terminal. Notice that the `light-meter` string is all we needed to specify to get the `light-meter/latest` events. By using the forward slash in events, we can subscribe via greedy prefix filters. 
+2. Shine a light on the light sensor and wait for readings. You should see events stream across your terminal. Notice that the `light-meter` string is all you need to specify to get the `light-meter/latest` events. By using the forward slash in events, can subscribe via greedy prefix filters. 
 
 ![](./images/02/light-cli.gif)
 
@@ -401,7 +403,7 @@ This section contains links and resources for the Grove sensors included in the 
 - [Particle Documentation](https://docs.particle.io/datasheets/accessories/mesh-accessories/#temperature-and-humidity-sensor)
 - [Seeed Studio Documentation](http://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/)
 
-### Light Sensor
+### Light sensor
 
 - Sensor Type: Analog
 - [Particle Documentation](https://docs.particle.io/datasheets/accessories/mesh-accessories/#light-sensor-v1-2)
