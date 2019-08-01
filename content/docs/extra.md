@@ -2,9 +2,9 @@
 
 ## Ideas for taking your exploration further!
 
-Now that you've gotten a survey of all that the Particle ecosystem offers, why not try building a web, mobile or cloud app to interact with your Particle device? Here are a couple of ideas to get your started, and links to some resources you might find helpful.
+Now that you've gotten a survey of all that the Particle ecosystem offers, why not try building a web, mobile, or cloud app to interact with your Particle device? Here are a couple of ideas to get your started, and links to some resources you might find helpful.
 
-1. Play with [all those other Grove Sensors in your Starter Kit](https://docs.particle.io/datasheets/accessories/mesh-accessories/) and build something awesome!
+1. Play with [all those other Grove sensors in your Starter Kit](https://docs.particle.io/datasheets/accessories/mesh-accessories/) and build something awesome!
 
 2.  Create a Particle-powered mobile app using our [iOS](https://docs.particle.io/reference/ios/), [Android](https://docs.particle.io/reference/android/), and [Windows](https://docs.particle.io/reference/windows/) SDKs.
 
